@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        a{
+          text-decoration: none;
+          color: black;
+          cursor: pointer;
+        }
+    </style>
+  </head>
+  <body>
+    <h1 class="text-center bg-danger p-3 text-white">Url Shortner</h1>
+    <div>
+
+        <form class="text-center" method="post" action="/url">
+            <br>
+            <label for="Enter Your Original URL"></label>
+            <input class="text-center" type="text" name="url" placeholder="https://example.com">
+            <br>
+            <button class="btn bg-info mt-3 mb-3" type="submit">Gernerate</button>
+            <button class="btn bg-warning mt-3 mb-3"><a href="http://localhost:8000">Home</a></button>
+        </form>
+        <hr>
+    </div>
+
+    <!-- links after shortning -->
+    <% if(locals.id){ %> 
+        <div class="text-center bg-secondary p-5 justify-content-center align-items-center text-white">
+            <p>Url Generated: http://localhost:8000/<%= id %></p>
+            <button class="btn bg-danger"><a target=”_blank” href="http://localhost:8000/<%= id %>"> Short url link</a></button>
+        </div>
+    <% } %>
+    
+
+
+    <!-- table  -->
+    <% if(locals.array){ %>
+      <table class="table text-center table-bordered">
+        <tr>
+          <th>Sr.no</th>
+          <th>shortId</th>
+          <th>Original url</th>
+          <th>Number of clicks</th>
+        </tr>
+
+        <% array.forEach((x,idx)=>{ %>
+          <tr>
+            <td><%= idx+1 %></td>
+            <td><a target="_blank" href="http://localhost:8000/<%=x.shortId%>"><%= x.shortId %> </a></td>
+            <td><%= x.redirectURL %></td>
+            <td><%= x.visitHistory.length %></td>
+          </tr>
+        <%})%>
+      </table>
+    <% } %>
+
+
+
+    
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
